@@ -6283,7 +6283,7 @@ bool ChatHandler::HandleShowGearScoreCommand(char *args)
     uint32 gearScore = player->GetEquipGearScore(withBags != 0, withBank != 0);
 
     PSendSysMessage(LANG_GEARSCORE, GetNameLink(player).c_str(), gearScore);
-
+}
 bool ChatHandler::HandleMmap(char* args)
 {
     bool on;
