@@ -1,5 +1,6 @@
 /*
- * Copyright (C) 2005-2012 MaNGOS <http://getmangos.com/>
+ * Copyright (C) 2005-2011 MaNGOS <http://getmangos.com/>
+ * Copyright (C) 2009-2012 MaNGOSZero <https://github.com/mangos-zero>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -274,10 +275,10 @@ class adt_MHDR
 
     uint32 pad;
     uint32 offsMCIN;           // MCIN
-    uint32 offsTex;               // MTEX
-    uint32 offsModels;           // MMDX
-    uint32 offsModelsIds;       // MMID
-    uint32 offsMapObejcts;       // MWMO
+    uint32 offsTex;            // MTEX
+    uint32 offsModels;         // MMDX
+    uint32 offsModelsIds;      // MMID
+    uint32 offsMapObejcts;     // MWMO
     uint32 offsMapObejctsIds;  // MWID
     uint32 offsDoodsDef;       // MDDF
     uint32 offsObjectsDef;     // MODF
