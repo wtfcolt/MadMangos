@@ -1617,9 +1617,6 @@ static void RewardGroupAtKill_helper(Player* pGroupGuy, Unit* pVictim, uint32 co
     if (pGroupGuy->isAlive())
         pGroupGuy->RewardHonor(pVictim,count);
 
-    // xp and reputation only in !PvP case
-    if(!PvP)
-    {
         float rate = group_rate * float(pGroupGuy->getLevel()) / sum_level;
 
         // if is in dungeon then all receive full reputation at kill
@@ -1644,7 +1641,6 @@ static void RewardGroupAtKill_helper(Player* pGroupGuy, Unit* pVictim, uint32 co
             if(pVictim->GetTypeId()==TYPEID_UNIT)
                 pGroupGuy->KilledMonster(((Creature*)pVictim)->GetCreatureInfo(), pVictim->GetObjectGuid());
         }
-    }
 }
 
 /** Provide rewards to group members at unit kill
