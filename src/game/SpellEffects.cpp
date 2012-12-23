@@ -3541,6 +3541,15 @@ void Spell::EffectScriptEffect(SpellEffectIndex eff_idx)
                     m_caster->CastSpell(m_caster, 28561, true);
                     return;
                 }
+                case 28374:                                 // Decimate (Naxxramas: Gluth)
+                {
+                    if (!unitTarget)
+                        return;
+                    int32 damage = unitTarget->GetHealth() - unitTarget->GetMaxHealth() * 5.0f;
+                    if (damage > 0)
+                        m_caster->CastCustomSpell(unitTarget, 28375, &damage, NULL, NULL, true);
+                    return;
+                }
             }
             break;
         }
