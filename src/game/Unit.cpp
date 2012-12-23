@@ -956,8 +956,7 @@ uint32 Unit::DealDamage(Unit *pVictim, uint32 damage, CleanDamage const* cleanDa
             }
 
             // if damage pVictim call AI reaction
-            if(pVictim->GetTypeId()==TYPEID_UNIT && ((Creature*)pVictim)->AI())
-                ((Creature*)pVictim)->AI()->AttackedBy(this);
+            pVictim->AttackedBy(this);
         }
 
         // polymorphed, hex and other negative transformed cases
@@ -2122,8 +2121,7 @@ void Unit::AttackerStateUpdate (Unit *pVictim, WeaponAttackType attType, bool ex
             GetGUIDLow(), pVictim->GetGUIDLow(), pVictim->GetTypeId(), damageInfo.damage, damageInfo.absorb, damageInfo.blocked_amount, damageInfo.resist);
 
     // if damage pVictim call AI reaction
-    if(pVictim->GetTypeId()==TYPEID_UNIT && ((Creature*)pVictim)->AI())
-        ((Creature*)pVictim)->AI()->AttackedBy(this);
+    pVictim->AttackedBy(this);
 
     // extra attack only at any non extra attack (normal case)
     if(!extra && extraAttacks)
@@ -4904,6 +4902,17 @@ bool Unit::Attack(Unit *victim, bool meleeAttack)
         SendMeleeAttackStart(victim);
 
     return true;
+}
+
+void Unit::AttackedBy(Unit* attacker)
+{
+    // trigger AI reaction
+    if (GetTypeId() == TYPEID_UNIT && ((Creature*)this)->AI())
+        ((Creature*)this)->AI()->AttackedBy(attacker);
+
+    // trigger pet AI reaction
+    if (Pet* pet = GetPet())
+        pet->AttackedBy(attacker);
 }
 
 bool Unit::AttackStop(bool targetSwitch /*=false*/)
@@ -8438,8 +8447,7 @@ void Unit::SetFeared(bool apply, ObjectGuid casterGuid, uint32 spellID, uint32 t
 
             // attack caster if can
             if (Unit* caster = IsInWorld() ? GetMap()->GetUnit(casterGuid) : NULL)
-                if (c->AI())
-                    c->AI()->AttackedBy(caster);
+                c->AttackedBy(caster);
         }
     }
 
