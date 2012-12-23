@@ -6057,6 +6057,15 @@ void Player::UpdateArea(uint32 newArea)
     UpdateAreaDependentAuras();
 }
 
+bool Player::CanUseOutdoorCapturePoint()
+{
+    return CanUseCapturePoint() &&
+        (IsPvP() || sWorld.IsPvPRealm()) &&
+        !HasMovementFlag(MOVEFLAG_FLYING) &&
+        !IsTaxiFlying() &&
+        !isGameMaster();
+}
+
 void Player::UpdateZone(uint32 newZone, uint32 newArea)
 {
     AreaTableEntry const* zone = GetAreaEntryByAreaID(newZone);
@@ -18524,14 +18533,6 @@ bool Player::CanUseBattleGroundObject()
              !isTotalImmune() &&                            // not totally immune
              //i'm not sure if these two are correct, because invisible players should get visible when they click on flag
              !HasStealthAura() &&                           // not stealthed
-             !HasInvisibilityAura() &&                      // not invisible
-             isAlive()                                      // live player
-           );
-}
-
-bool Player::CanCaptureTowerPoint()
-{
-    return ( !HasStealthAura() &&                           // not stealthed
              !HasInvisibilityAura() &&                      // not invisible
              isAlive()                                      // live player
            );
