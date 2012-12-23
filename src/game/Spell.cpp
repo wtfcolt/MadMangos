@@ -1450,13 +1450,24 @@ void Spell::SetTargetMap(SpellEffectIndex effIndex, uint32 targetMode, UnitList&
                 case 25991:                                 // Poison Bolt Volley (Pincess Huhuran)
                     unMaxTargets = 15;
                     break;
+                case 24811:                                 // Draw Spirit (Lethon)
+                {
+                    if (effIndex == EFFECT_INDEX_0)         // Copy range from EFF_1 to 0
+                        radius = GetSpellRadius(sSpellRadiusStore.LookupEntry(m_spellInfo->EffectRadiusIndex[EFFECT_INDEX_1]));
+                    break;
+                }
+                case 28241:                                 // Poison (Naxxramas, Grobbulus Cloud)
+                {
+                    if (SpellAuraHolder* auraHolder = m_caster->GetSpellAuraHolder(28158))
+                        radius = 0.5f * (60000 - auraHolder->GetAuraDuration()) * 0.001f;
+                    break;
+                }
             }
             break;
         }
         default:
             break;
     }
-
     switch(targetMode)
     {
         case TARGET_TOTEM_EARTH:

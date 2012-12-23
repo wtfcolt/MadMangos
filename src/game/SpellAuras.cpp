@@ -1461,12 +1461,12 @@ void Aura::HandleAuraDummy(bool apply, bool Real)
                 }
                 case 28374:                                 // Decimate (Naxxramas: Gluth)
                 {
-                    if (!unitTarget)
+                    if (!target)
                         return;
-
-                    int32 damage = unitTarget->GetHealth() - unitTarget->GetMaxHealth() * 5.0f;
+					Unit* caster = GetCaster();
+                    int32 damage = target->GetHealth() - target->GetMaxHealth() * 5.0f;
                     if (damage > 0)
-                        m_caster->CastCustomSpell(unitTarget, 28375, &damage, NULL, NULL, true);
+                        caster->CastCustomSpell(target, 28375, &damage, NULL, NULL, true);
                     return;
                 }
                 case 27978:
